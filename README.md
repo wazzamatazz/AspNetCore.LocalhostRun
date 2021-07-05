@@ -41,7 +41,7 @@ An example ASP.NET Core application can be found [here](/samples/LocalhostRunTes
 
 [localhost.run](https://localhost.run/) is an excellent service for creating internet-facing tunnels to web applications running on `localhost`, acting as a reverse proxy that can serve your application over HTTP/80 and HTTPS/443. However, due to the way that `localhost.run` adds the [X-Forwarded-* headers to proxied requests](https://localhost.run/docs/http-tunnels#proxy-headers), ASP.NET Core's forwarded headers middleware requires some additional configuration to make it work with `localhost.run`.
 
-The `AddLocalhostRunIntegration` extension method used in the example above performs the following actions:
+The [AddLocalhostRunIntegration](/src/Jaahas.AspNetCore.LocalhostRun/LocalhostRunExtensions.cs) extension method used in the example above performs the following actions:
 
 - Configures the [ForwardedHeadersOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions) for the application to use proxy headers named `X_Forwarded_For`, `X_Forwarded_Host` and `X_Forwarded_Proto` (instead of the standard `X-Forwarded-For`, `X-Forwarded-Host` and `X-Forwarded-Proto` names).
 - Configures `ForwardedHeadersOptions` so that ASP.NET Core will only process the `X_Forwarded_For` and `X_Forwarded_Proto` headers by default.
