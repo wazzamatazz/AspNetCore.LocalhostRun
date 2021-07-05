@@ -38,7 +38,7 @@ app.UseHttpsRedirection();
 
 The `AddLocalhostRunIntegration` extension method used in the example above performs the following actions:
 
-- Configures the [ForwardedHeadersOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions) for the application to configure ASP.NET Core to use proxy headers named `X_Forwarded_For`, `X_Forwarded_Host` and `X_Forwarded_Proto` (instead of the standard `X-Forwarded-For`, `X-Forwarded-Host` and `X-Forwarded-Proto` names).
+- Configures the [ForwardedHeadersOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions) for the application to use proxy headers named `X_Forwarded_For`, `X_Forwarded_Host` and `X_Forwarded_Proto` (instead of the standard `X-Forwarded-For`, `X-Forwarded-Host` and `X-Forwarded-Proto` names).
 - Configures `ForwardedHeadersOptions` so that ASP.NET Core will only process the `X_Forwarded_For` and `X_Forwarded_Proto` headers by default.
 - Clears the `KnownNetworks` and `KnownProxies` lists on the `ForwardedHeadersOptions` as per [here](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies) to remove the default restrictions that only allow loopback proxies.
 - Configures the application's HTTPS redirection policy to redirect non-HTTPS requests to port 443 via an HTTP 307/Temporary Redirect response.
