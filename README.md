@@ -39,7 +39,7 @@ An example ASP.NET Core application can be found [here](/samples/LocalhostRunTes
 
 # Details
 
-[localhost.run](https://localhost.run/) is an excellent service for creating internet-facing tunnels to web applications running on `localhost`, acting as a reverse proxy that can serve your application over HTTP/80 and HTTPS/443. However, due to the way that `localhost.run` adds the [X-Forwarded-* headers to proxied requests](https://localhost.run/docs/http-tunnels#proxy-headers), ASP.NET Core's forwarded headers middleware requires some additional configuration.
+[localhost.run](https://localhost.run/) is an excellent service for creating internet-facing tunnels to web applications running on `localhost`, acting as a reverse proxy that can serve your application over HTTP/80 and HTTPS/443. However, due to the way that `localhost.run` adds the [X-Forwarded-* headers to proxied requests](https://localhost.run/docs/http-tunnels#proxy-headers), ASP.NET Core's forwarded headers middleware requires some additional configuration to make it work with `localhost.run`.
 
 The `AddLocalhostRunIntegration` extension method used in the example above performs the following actions:
 
