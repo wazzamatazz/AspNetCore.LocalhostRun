@@ -5,7 +5,7 @@ A library for simplifying integration between ASP.NET Core applications and [loc
 
 # Getting Started
 
-Add the [Jaahas.AspNetCore.LocalhostRun]() NuGet package to your application.
+Add the [Jaahas.AspNetCore.LocalhostRun](https://www.nuget.org/packages/Jaahas.AspNetCore.LocalhostRun) NuGet package to your application.
 
 Add the localhost.run configuration to your application services:
 
