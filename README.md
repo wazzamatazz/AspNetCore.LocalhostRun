@@ -46,7 +46,7 @@ The `AddLocalhostRunIntegration` extension method used in the example above perf
 
 ## Automatic Forwarded Headers Configuration
 
-When your application is started with the `ForwardedHeaders:Enabled` setting set to `true` (e.g. via the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable) and you use `WebHost.CreateDefaultBuilder` to create your web host builder, it is not necessary to add the forwarded headers middleware to your application pipeline; ASP.NET Core will add it automatically.
+When your application is started with the `ForwardedHeaders:Enabled` setting set to `true` (e.g. via the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable) and you use `WebHost.CreateDefaultBuilder` or `Host.CreateDefaultBuilder` to create your web host builder, it is not necessary to add the forwarded headers middleware to your application pipeline; ASP.NET Core will add it automatically.
 
 However, the HTTPS redirection middleware must always be manually added to the application if you require it.
 
