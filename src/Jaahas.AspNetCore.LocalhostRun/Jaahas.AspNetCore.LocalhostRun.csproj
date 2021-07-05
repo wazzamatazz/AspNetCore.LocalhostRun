@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net5.0;netcoreapp3.1</TargetFrameworks>
+    <Description>A library for simplifying integration between ASP.NET Core applications and localhost.run.</Description>
   </PropertyGroup>
 
   <ItemGroup>
