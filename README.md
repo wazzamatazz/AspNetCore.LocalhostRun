@@ -15,7 +15,7 @@ services.AddLocalhostRunIntegration();
 
 Add the forwarded headers and HTTPS redirection middlewares to your application pipeline:
 
-```
+```csharp
 if (env.IsDevelopment()) {
     app.UseDeveloperExceptionPage();
     app.UseForwardedHeaders();
