@@ -4,17 +4,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{10A2813D-C970-4F6F-9A59-94F7C972257F}"
-	ProjectSection(SolutionItems) = preProject
-		src\README.md = src\README.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C4C50D71-6AAC-45A9-9257-5D02A42B61DC}"
 	ProjectSection(SolutionItems) = preProject
 		build\build-state.cake = build\build-state.cake
 		build\build-utilities.cake = build\build-utilities.cake
 		build\Dependencies.props = build\Dependencies.props
-		build\NetFX.targets = build\NetFX.targets
-		build\README.md = build\README.md
 		build\version.json = build\version.json
 	EndProjectSection
 EndProject
@@ -30,21 +25,36 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0390FA
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{ADFADB4B-0729-40E6-B241-6E1B89A8731C}"
-	ProjectSection(SolutionItems) = preProject
-		test\Directory.Build.props = test\Directory.Build.props
-		test\README.md = test\README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{9EC81ADF-5CE2-4140-96BC-958CB9E0365C}"
 	ProjectSection(SolutionItems) = preProject
 		samples\Directory.Build.props = samples\Directory.Build.props
-		samples\README.md = samples\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jaahas.AspNetCore.LocalhostRun", "src\Jaahas.AspNetCore.LocalhostRun\Jaahas.AspNetCore.LocalhostRun.csproj", "{D74C9E49-A266-4CB3-A153-8BE77243492D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalhostRunTest", "samples\LocalhostRunTest\LocalhostRunTest.csproj", "{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D74C9E49-A266-4CB3-A153-8BE77243492D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D74C9E49-A266-4CB3-A153-8BE77243492D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D74C9E49-A266-4CB3-A153-8BE77243492D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D74C9E49-A266-4CB3-A153-8BE77243492D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D74C9E49-A266-4CB3-A153-8BE77243492D} = {10A2813D-C970-4F6F-9A59-94F7C972257F}
+		{CFA56F60-28B3-436C-9D51-D2E8B08FD7AF} = {9EC81ADF-5CE2-4140-96BC-958CB9E0365C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94DF2EE3-033D-46CD-9EC3-7BC808B13372}

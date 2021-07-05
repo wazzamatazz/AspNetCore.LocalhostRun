@@ -1,44 +1,55 @@
-# C# Repository Template
+# Jaahas.AspNetCore.LocalhostRun
 
-Repository template for a C# project.
+A library for simplifying integration between ASP.NET Core applications and [localhost.run](https://localhost.run/).
 
 
 # Getting Started
 
-- Create a new repository on GitHub and choose this repository as the template, or click on the _"Use this template"_ button on the repository home page.
-- Rename the solution file in the root of the repository ([RENAME-ME.sln](/RENAME-ME.sln)).
-- Update [Directory.Build.props](/Directory.Build.props) in the root folder and replace the placeholder values in the shared project properties (e.g. `{{COPYRIGHT_START_YEAR}}`).
-- Update [build.cake](/build.cake) in the root folder and replace the `DefaultSolutionName` constant at the start of the file with the name of your solution file.
-- Create new library and application projects in the `src` folder.
-- Create test and benchmarking projects in the `test` folder.
-- Create example projects that demonstrate the library and application projects in the `samples` folder.
+Add the [Jaahas.AspNetCore.LocalhostRun]() NuGet package to your application.
+
+Add the localhost.run configuration to your application services:
+
+```csharp
+services.AddLocalhostRunIntegration();
+```
+
+Add the forwarded headers and HTTPS redirection middlewares to your application pipeline:
+
+```
+if (env.IsDevelopment()) {
+    app.UseDeveloperExceptionPage();
+    app.UseForwardedHeaders();
+}
+else {
+    app.UseExceptionHandler("/Home/Error");
+    app.UseForwardedHeaders();
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+// Remaining configuration removed
+```
 
 
-# Repository Structure
+# Details
 
-The repository is organised as follows:
+[localhost.run](https://localhost.run/) is an excellent service for creating internet-facing tunnels to web applications running on `localhost`, acting as a reverse proxy that can serve your application over HTTP/80 and HTTPS/443. However, due to the way that `localhost.run` adds the [X-Forwarded-* headers to proxied requests](https://localhost.run/docs/http-tunnels#proxy-headers), ASP.NET Core's forwarded headers middleware requires some additional configuration.
 
-- `[root]`
-  - `.editorconfig` - Code style rules (see [here](https://editorconfig.org/) for details).
-  - `.gitattributes`
-  - `.gitignore`
-  - `build.cake` - [Cake](https://cakebuild.net/) script for building the projects.
-  - `build.ps1` - PowerShell script to bootstrap and run the Cake script.
-  - `Directory.Build.props` - Common MSBuild properties and targets (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
-  - `Directory.Build.targets` - Common MSBuild properties and targets (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details). 
-  - `README.md`
-  - `RENAME-ME.sln` - Visual Studio solution file.
-  - `[build]` - Resources for building the solution.
-    - `build-state.cake` - Additional build script.
-    - `build-utilities.cake` - Additional build script.
-    - `Dependencies.props` - Common NuGet package versions.
-    - `NetFX.targets` - Adds package references for building projects that target .NET Framework on non-Windows systems.
-    - `version.json` - Defines version numbers used when building the projects.
-  - `[samples]` - Example projects to demonstrate the usage of the repository libraries and applications.
-    - `Directory.Build.props` - Common MSBuild properties and targets related to example projects (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
-  - `[src]` - Source code for repository libraries and applications.
-  - `[test]` - Test and benchmarking projects.
-    - `Directory.Build.props` - Common MSBuild properties and targets related to test projects (see [here](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build) for details).
+The `AddLocalhostRunIntegration` extension method used in the example above performs the following actions:
+
+- Configures the [ForwardedHeadersOptions](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.builder.forwardedheadersoptions) for the application to configure ASP.NET Core to use proxy headers named `X_Forwarded_For`, `X_Forwarded_Host` and `X_Forwarded_Proto` (instead of the standard `X-Forwarded-For`, `X-Forwarded-Host` and `X-Forwarded-Proto` names).
+- Configures `ForwardedHeadersOptions` so that ASP.NET Core will only process the `X_Forwarded_For` and `X_Forwarded_Proto` headers by default.
+- Clears the `KnownNetworks` and `KnownProxies` lists on the `ForwardedHeadersOptions` as per [here](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies) to remove the default restrictions that only allow loopback proxies.
+- Configures the application's HTTPS redirection policy to redirect non-HTTPS requests to port 443 via an HTTP 307/Temporary Redirect response.
+
+
+## Automatic Forwarded Headers Configuration
+
+When your application is started with the `ForwardedHeaders:Enabled` setting set to `true` (e.g. via the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable) and you use `WebHost.CreateDefaultBuilder` to create your web host builder, it is not necessary to add the forwarded headers middleware to your application pipeline; ASP.NET Core will add it automatically.
+
+However, the HTTPS redirection middleware must always be manually added to the application if you require it.
+
 
 
 # Building the Solution
